@@ -51,9 +51,10 @@ input {
 }
 
 button {
-  padding: 12px 6px;
+  padding: 8px 12px;
   border: none;
-  border-radius: none;
+  border-radius: 6px;
+  background: #00eaff;
   color: black;
   cursor: pointer;
 }
@@ -77,8 +78,8 @@ button {
 <div class="sidebar">
   <h2>⚡ TechPanel</h2>
   <a href="dashboard.html">Dashboard</a>
-  <a href="relatorios.html">relatorios</a>
-  <a href="usuario.html">Usuário</a>
+  <a href="relatorios.html">Relatórios</a>
+  <a href="usuarios.html">Usuários</a>
   <a href="configuracoes.html">Configurações</a>
 </div>
 
@@ -161,7 +162,7 @@ function render() {
           ${list.items.map((item, j) => `
             <li class="${item.done ? 'done' : ''}">
               <span onclick="toggleItem(${i}, ${j})">${item.text}</span>
-              <button onclick="removeItem(${i}, ${j})">-</button>
+              <button onclick="removeItem(${i}, ${j})">X</button>
             </li>
           `).join("")}
         </ul>
