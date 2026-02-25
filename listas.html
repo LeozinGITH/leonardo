@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Listas - TechPanel</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+  color: white;
+}
+
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  position: fixed;
+  background: rgba(255,255,255,0.05);
+  padding: 20px;
+}
+
+.sidebar h2 {
+  color: #00eaff;
+}
+
+.sidebar a {
+  display: block;
+  color: #ddd;
+  margin: 15px 0;
+  text-decoration: none;
+}
+
+.main {
+  margin-left: 240px;
+  padding: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  margin-right: 10px;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #00eaff;
+  color: black;
+  cursor: pointer;
+}
+
+.list-box {
+  margin-top: 15px;
+  padding: 10px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+}
+
+.done {
+  text-decoration: line-through;
+  color: gray;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>⚡ TechPanel</h2>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="listas.html">Listas</a>
+</div>
+
+<div class="main">
+
+  <h1>Gerenciador de Listas</h1>
+
+  <div class="card">
+    <input type="text" id="newListName" placeholder="Nome da lista">
+    <button onclick="createList()">Criar lista</button>
+  </div>
+
+  <div id="listsContainer"></div>
+
+</div>
+
+<script>
+let lists = JSON.parse(localStorage.getItem("lists")) || [];
+
+function save() {
+  localStorage.setItem("lists", JSON.stringify(lists));
+}
+
+function createList() {
+  const name = document.getElementById("newListName").value;
+  if (!name) return;
+
+  lists.push({ name, items: [] });
+  document.getElementById("newListName").value = "";
+  save();
+  render();
+}
+
+function addItem(listIndex, inputId) {
+  const input = document.getElementById(inputId);
+  if (!input.value) return;
+
+  lists[listIndex].items.push({ text: input.value, done: false });
+  input.value = "";
+  save();
+  render();
+}
+
+function toggleItem(listIndex, itemIndex) {
+  lists[listIndex].items[itemIndex].done =
+    !lists[listIndex].items[itemIndex].done;
+  save();
+  render();
+}
+
+function removeItem(listIndex, itemIndex) {
+  lists[listIndex].items.splice(itemIndex, 1);
+  save();
+  render();
+}
+
+function deleteList(index) {
+  lists.splice(index, 1);
+  save();
+  render();
+}
+
+function render() {
+  const container = document.getElementById("listsContainer");
+  container.innerHTML = "";
+
+  lists.forEach((list, i) => {
+    const div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+      <h3>${list.name}</h3>
+      <button onclick="deleteList(${i})">Excluir lista</button>
+
+      <div class="list-box">
+        <input id="input-${i}" placeholder="Novo item">
+        <button onclick="addItem(${i}, 'input-${i}')">Adicionar</button>
+
+        <ul>
+          ${list.items.map((item, j) => `
+            <li class="${item.done ? 'done' : ''}">
+              <span onclick="toggleItem(${i}, ${j})">${item.text}</span>
+              <button onclick="removeItem(${i}, ${j})">X</button>
+            </li>
+          `).join("")}
+        </ul>
+      </div>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+render();
+</script>
+
+</body>
+</html>
