@@ -51,7 +51,7 @@ input {
 }
 
 button {
-  padding: none;
+  padding: 12px 6px;
   border: none;
   border-radius: none;
   color: black;
@@ -161,7 +161,7 @@ function render() {
           ${list.items.map((item, j) => `
             <li class="${item.done ? 'done' : ''}">
               <span onclick="toggleItem(${i}, ${j})">${item.text}</span>
-              <button onclick="removeItem(${i}, ${j})">X</button>
+              <button onclick="removeItem(${i}, ${j})">-</button>
             </li>
           `).join("")}
         </ul>
