@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>TechPanel — Sistema</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #0f2027, #203a43, #000);
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+}
+
+.logo {
+  font-size: 24px;
+  color: #00eaff;
+  font-weight: bold;
+}
+
+.nav-links a {
+  color: #ddd;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: #00eaff;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 120px 20px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  background: linear-gradient(90deg, #00eaff, #00ff9d);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  font-size: 20px;
+  color: #ccc;
+  margin-top: 20px;
+}
+
+button {
+  margin-top: 30px;
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  background: #00eaff;
+  color: black;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0,255,255,0.4);
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Features */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
+  padding: 40px;
+}
+
+.card {
+  background: rgba(255,255,255,0.05);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <div class="logo">⚡ TechPanel</div>
+  <div class="nav-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="relatorios.html">Relatórios</a>
+    <a href="usuarios.html">Usuários</a>
+    <a href="configuracoes.html">Configurações</a>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>Plataforma de Gestão Inteligente</h1>
+  <p>Controle, monitore e analise seu sistema em tempo real</p>
+  <button onclick="entrar()">Entrar no Sistema</button>
+</div>
+
+<div class="features">
+
+  <div class="card">
+    <h3>📊 Dashboard</h3>
+    <p>Métricas em tempo real</p>
+  </div>
+
+  <div class="card">
+    <h3>📑 Relatórios</h3>
+    <p>Análises detalhadas</p>
+  </div>
+
+  <div class="card">
+    <h3>👥 Usuários</h3>
+    <p>Gestão completa</p>
+  </div>
+
+  <div class="card">
+    <h3>⚙️ Configurações</h3>
+    <p>Controle do sistema</p>
+  </div>
+
+</div>
+
+<script>
+function entrar() {
+  window.location.href = "dashboard.html";
+}
+</script>
+
+</body>
+</html>

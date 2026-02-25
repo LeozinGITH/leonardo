@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Usuários - TechPanel</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+  color: white;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  position: fixed;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+}
+
+.sidebar h2 {
+  color: #00eaff;
+}
+
+.sidebar a {
+  display: block;
+  color: #ddd;
+  text-decoration: none;
+  margin: 15px 0;
+}
+
+.sidebar a:hover {
+  color: #00eaff;
+}
+
+/* Main */
+.main {
+  margin-left: 240px;
+  padding: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  margin-right: 10px;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #00eaff;
+  color: black;
+  cursor: pointer;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>⚡ TechPanel</h2>
+  <a href="index.html">Inicio</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="relatorios.html">Relatórios</a>
+  <a href="configuracoes.html">Usuários</a>
+</div>
+
+<div class="main">
+
+  <h1>Gestão de Usuários</h1>
+
+  <div class="card">
+    <h3>Novo Usuário</h3>
+
+    <input type="text" id="name" placeholder="Nome">
+    <input type="email" id="email" placeholder="Email">
+    <button onclick="addUser()">Adicionar</button>
+  </div>
+
+  <div class="card">
+    <h3>Lista de Usuários</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="userTable"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+function saveUsers() {
+  localStorage.setItem("users", JSON.stringify(users));
+}
+
+function addUser() {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+
+  if (!name || !email) return;
+
+  users.push({ name, email });
+  saveUsers();
+  renderUsers();
+
+  document.getElementById("name").value = "";
+  document.getElementById("email").value = "";
+}
+
+function removeUser(i) {
+  users.splice(i, 1);
+  saveUsers();
+  renderUsers();
+}
+
+function renderUsers() {
+  const table = document.getElementById("userTable");
+  table.innerHTML = "";
+
+  users.forEach((u, i) => {
+    table.innerHTML += `
+      <tr>
+        <td>${u.name}</td>
+        <td>${u.email}</td>
+        <td>
+          <button onclick="removeUser(${i})">Excluir</button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
+renderUsers();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Configurações - TechPanel</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+  color: white;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  position: fixed;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+}
+
+.sidebar h2 {
+  color: #00eaff;
+}
+
+.sidebar a {
+  display: block;
+  color: #ddd;
+  text-decoration: none;
+  margin: 15px 0;
+}
+
+.sidebar a:hover {
+  color: #00eaff;
+}
+
+/* Main */
+.main {
+  margin-left: 240px;
+  padding: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+input, select {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 10px;
+  width: 100%;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #00eaff;
+  color: black;
+  cursor: pointer;
+  margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>⚡ TechPanel</h2>
+  <a href="index.html">Inicio</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="relatorios.html">Relatórios</a>
+  <a href="usuarios.html">Usuários</a>
+</div>
+
+<div class="main">
+
+  <h1>Configurações do Sistema</h1>
+
+  <div class="card">
+    <h3>Nome do Sistema</h3>
+    <input type="text" id="systemName" placeholder="Digite o nome">
+  </div>
+
+  <div class="card">
+    <h3>Tema</h3>
+    <select id="theme">
+      <option value="tech">Tecnológico</option>
+      <option value="dark">Escuro</option>
+      <option value="light">Claro</option>
+    </select>
+  </div>
+
+  <button onclick="saveSettings()">Salvar Configurações</button>
+
+</div>
+
+<script>
+function loadSettings() {
+  const name = localStorage.getItem("systemName");
+  const theme = localStorage.getItem("theme");
+
+  if (name) document.getElementById("systemName").value = name;
+  if (theme) document.getElementById("theme").value = theme;
+}
+
+function saveSettings() {
+  const name = document.getElementById("systemName").value;
+  const theme = document.getElementById("theme").value;
+
+  localStorage.setItem("systemName", name);
+  localStorage.setItem("theme", theme);
+
+  alert("Configurações salvas!");
+}
+
+loadSettings();
+</script>
+
+</body>
+</html>

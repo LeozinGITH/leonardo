@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatórios - TechPanel</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+  color: white;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  position: fixed;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+}
+
+.sidebar h2 {
+  color: #00eaff;
+}
+
+.sidebar a {
+  display: block;
+  color: #ddd;
+  text-decoration: none;
+  margin: 15px 0;
+}
+
+.sidebar a:hover {
+  color: #00eaff;
+}
+
+/* Main */
+.main {
+  margin-left: 240px;
+  padding: 20px;
+}
+
+.header {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #00eaff;
+  color: black;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>⚡ TechPanel</h2>
+  <a href="index.html">Inicio</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="configuracoes.html">Configurações</a>
+  <a href="usuarios.html">Usuários</a>
+</div>
+
+<div class="main">
+
+  <div class="header">Relatórios do Sistema</div>
+
+  <div class="card">
+    <canvas id="reportChart"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>Logs Recentes</h3>
+
+    <button onclick="exportCSV()">Exportar CSV</button>
+
+    <table id="table">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Evento</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>01/03</td>
+          <td>Backup executado</td>
+          <td>OK</td>
+        </tr>
+        <tr>
+          <td>02/03</td>
+          <td>Atualização sistema</td>
+          <td>OK</td>
+        </tr>
+        <tr>
+          <td>03/03</td>
+          <td>Erro conexão API</td>
+          <td>Falha</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+
+<script>
+new Chart(document.getElementById("reportChart"), {
+  type: "bar",
+  data: {
+    labels: ["Seg","Ter","Qua","Qui","Sex"],
+    datasets: [{
+      label: "Eventos",
+      data: [5,8,4,7,6],
+      borderWidth: 1
+    }]
+  },
+  options: { responsive: true }
+});
+
+function exportCSV() {
+  let csv = [];
+  let rows = document.querySelectorAll("table tr");
+
+  rows.forEach(row => {
+    let cols = row.querySelectorAll("td, th");
+    let rowData = [];
+
+    cols.forEach(col => rowData.push(col.innerText));
+    csv.push(rowData.join(","));
+  });
+
+  let blob = new Blob([csv.join("\n")], { type: "text/csv" });
+  let url = window.URL.createObjectURL(blob);
+
+  let a = document.createElement("a");
+  a.href = url;
+  a.download = "relatorio.csv";
+  a.click();
+}
+</script>
+
+</body>
+</html>

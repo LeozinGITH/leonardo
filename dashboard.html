@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard Tech</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+  color: white;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  position: fixed;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+}
+
+.sidebar h2 {
+  color: #00eaff;
+}
+
+.sidebar a {
+  display: block;
+  color: #ddd;
+  text-decoration: none;
+  margin: 15px 0;
+}
+
+.sidebar a:hover {
+  color: #00eaff;
+}
+
+/* Main */
+.main {
+  margin-left: 240px;
+  padding: 20px;
+}
+
+.header {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.08);
+  padding: 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(0,255,255,0.1);
+}
+
+.card h3 {
+  margin: 0;
+  color: #00eaff;
+}
+
+/* Chart */
+.chart-box {
+  margin-top: 30px;
+  background: rgba(255,255,255,0.08);
+  padding: 20px;
+  border-radius: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>⚡ TechPanel</h2>
+  <a href="relatorios.html">Relatórios</a>
+  <a href="usuarios.html">Usuários</a>
+  <a href="configuracoes.html">Configurações</a>
+</div>
+
+<div class="main">
+
+  <div class="header">Dashboard Tecnológico</div>
+
+  <div class="cards">
+    <div class="card">
+      <h3>CPU</h3>
+      <p id="cpu">35%</p>
+    </div>
+
+    <div class="card">
+      <h3>Memória</h3>
+      <p id="ram">62%</p>
+    </div>
+
+    <div class="card">
+      <h3>Usuários Online</h3>
+      <p id="users">120</p>
+    </div>
+
+    <div class="card">
+      <h3>Serviços</h3>
+      <p>Operacionais</p>
+    </div>
+  </div>
+
+  <div class="chart-box">
+    <canvas id="chart"></canvas>
+  </div>
+
+</div>
+
+<script>
+const ctx = document.getElementById("chart");
+
+new Chart(ctx, {
+  type: "line",
+  data: {
+    labels: ["Jan","Fev","Mar","Abr","Mai","Jun"],
+    datasets: [{
+      label: "Uso do Sistema",
+      data: [12,19,8,15,22,18],
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true
+  }
+});
+
+/* Simulação de métricas em tempo real */
+setInterval(() => {
+  document.getElementById("cpu").innerText =
+    Math.floor(Math.random()*60+20)+"%";
+
+  document.getElementById("ram").innerText =
+    Math.floor(Math.random()*40+40)+"%";
+
+  document.getElementById("users").innerText =
+    Math.floor(Math.random()*200+50);
+}, 3000);
+</script>
+
+</body>
+</html>
